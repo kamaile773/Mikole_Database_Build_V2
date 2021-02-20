@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}All Party Packages{% endblock %}
+
+{% block body %}
+  <h1>Here are all of Our Party Packages</h1>
+  <h2></h2>
+
+  <body>
+    <ul id="Party Package Details">
+        <li>
+          <a href="{{ partypackage.purchase_id }}">
+            {{ partypackage.title }}
+          </a>
+          :{{ partypackage.overview }}
+          {{ partypackage.party_includes }}
+          {{ partypackage.qty_of_guest }}
+          {{ partypackage.cost }}
+        </li>
+    </ul>
+
+<button style="margin:10px" type="button" onclick="location.href='/clientprofile';"class="btn btn-warning">Reserve Event Today</button>
+
+{% endblock %}

@@ -1,6 +1,6 @@
 """CRUD Operations."""
 
-from model import db, Party_Package, connect_to_db
+from model import db, Party_Package, Staffer, connect_to_db
 
 #from model import db, Client, Event, Party_Package, Inventory, Staffer, PartyStaffer, connect_to_db
 
@@ -23,10 +23,17 @@ def get_partypackages():
 
     return Party_Package.query.all()
 
-def get_partypackages_by_id(purchase_id):
+def get_partypackages_id(purchase_id):
     """Return Party Package by PK."""
-
+    
     return Party_Package.query.get(purchase_id)
+
+
+def get_staff_by_phone_num(phone_num):
+    """Return Staff by their phone number."""
+
+    return Staffer.query.filter_by(phone_num=phone_num).first()
+
 
 if __name__ == '__main__':
     from server import app

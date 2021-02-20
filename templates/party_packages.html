@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}All Party Packages{% endblock %}
+
+{% block body %}
+  <h1>Here are all of Our Party Packages</h1>
+  <h2></h2>
+
+  <body>
+    <ul id="Party Package Details">
+      {% for package in party_packages_list %}
+        <li>
+          <a href="/partypackages/{{ package.purchase_id }}">
+            {{ package.title }}
+          </a>
+          :{{ package.overview }}
+          {{ package.party_includes }}
+          {{ package.qty_of_guest }}
+          {{ package.cost }}
+        </li>
+      {% endfor %}
+    </ul>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

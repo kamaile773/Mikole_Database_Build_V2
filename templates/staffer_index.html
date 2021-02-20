@@ -1,0 +1,15 @@
+{% extends "staffers_layout.html" %}
+{% block body %}
+  <h1>Overview</h1>
+  <p>Do you want to log in?</p>
+    <form method="post" action="/staffer_login">
+      <dl>
+        <dt>Username:
+        <dd><input type="text" name="username">
+        <dt>Password:
+        <dd><input type="text" name="phone_num"> 
+      </dl>
+      <p><input type="submit" value="Login">
+    </form>
+{% endblock %}
+

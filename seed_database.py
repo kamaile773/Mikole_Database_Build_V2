@@ -10,6 +10,7 @@ from model import *
 import crud
 import server
 
+
 os.system('dropdb mikole')
 os.system('createdb mikole')
 

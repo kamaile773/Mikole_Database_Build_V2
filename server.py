@@ -1,9 +1,16 @@
 """Mikole party service application Flask server"""
 
-from flask import Flask, render_template, redirect, flash, session
+from flask import Flask, render_template, redirect, flash, session, request
 import jinja2
 from model import connect_to_db
 import crud
+# import psycopg2
+# try:
+#     conn = psycopg2.connect(database="app", user="kjoe", password="testing1234", host="localhost")
+#     print("connected")
+# except:
+#     print("Nope, Not Today")
+# mycursor =conn.cursor()
 
 app = Flask(__name__)
 app.secret_key = 'nihq8ruwetu&(*^iaifj'
@@ -28,16 +35,18 @@ def list_party_packages():
 
     return render_template('party_packages.html', party_packages_list=party_packages_list)
 
+#Passing string /partypackages/<purchase_id> as a agru to app.route= means 
+# that when we go localhost:5000/ it directs it here
 @app.route('/partypackages/<purchase_id>')
-def show_partypackages(purchase_id):
+def show_packdets(purchase_id):
     """Show details on a particular party package."""
 
-    partypackages = crud.get_partypackages_by_id(purchase_id)
+    partypackage = crud.get_partypackages_id(purchase_id)
 
-    return render_template('partypackages_details.html', partypackages=partypackages)
+    return render_template('partypackages_details.html', partypackage=partypackage)
+
 
 #Create routes for staffers: View all, GET individuals, Create new staff, Staff login"""
-
 @app.route('/staffers')
 def all_staffers():
     """View all Staffers."""
@@ -46,23 +55,31 @@ def all_staffers():
 
     return render_template(staffers=staffers)
 
-@app.route('/staffers', methods=['GET','POST'])
-def staffers_login():
+@app.route('/staffer_login', methods=['POST'])
+def staffer_login():
     """Create a staffer login."""
 
-    username = request.form['lname']
-    sphone_num = request.form['phone_num']
+    username = request.form['username']
+    phone_num = request.form['phone_num']
 
     staffer_login_pn = crud.get_staff_by_phone_num(phone_num)
     # option 1 on if statement
     
-    if request.method == 'POST':
-        if staffer_login_pn != ['sphone_num']:
-            flash('Wrong password!')
-        else:
-            flash(f'You are logged in as {username}.')
-            return redirect('Staff/staffers_layout.html')
-    return render_template('homepage.html', staffer_login_pn=staffer_login_pn)
+    if staffer_login_pn == None:
+        flash('Wrong password!')
+        return redirect('/staffer_login')
+    else:
+        flash(f'You are logged in as {username}.')
+    return redirect('/')
+
+
+
+#Passing this string /staffer_login as a agru to app.route= means that when we go localhost:5000/staffer_login it directs it here
+@app.route('/staffer_login')
+def staffers_login():
+    """Create a staffer login."""
+
+    return render_template('staffer_index.html')
 
 
 @app.route('/staffers/<staff_id>')

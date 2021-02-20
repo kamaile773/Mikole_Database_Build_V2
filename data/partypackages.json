@@ -1,0 +1,30 @@
+[
+    {
+        "title": " Bronze Event",
+        "overview": "Our intimate party was designed to host a small group of guests 2-20(including the guest of honor(s): Such as a birthday, anniversary engaement, small celebration, holiday party, or even for a small wedding!",
+        "party_includes": "This party includes: A dedicated Party Host, Site: Reservation for 3 hours, decorations, All tables and chair, and set-up/ clean-up;\n Themed Food Package: 4 course meal preapred by our chef, Drinks:2 softdrink choices, water, 2 bottles of wine*.\n And a thank you gift for all Guest.",
+        "qtyguest": "20",
+        "cost": "1500.00"
+    },
+    {
+        "title": " Silver Event",
+        "overview": "**Our intimate party was designed to host a small group of guests 2-20(including the guest of honor(s): Such as a birthday, anniversary engaement, small celebration, holiday party, or even for a small wedding!",
+        "party_includes": "**This party includes: A dedicated Party Host, Site: Reservation for 3 hours, decorations, All tables and chair, and set-up/ clean-up;\n Themed Food Package: 4 course meal preapred by our chef, Drinks:2 softdrink choices, water, 2 bottles of wine*.\n And a thank you gift for all Guest.",
+        "qtyguest": "50",
+        "cost": "5500.00"
+    },
+    {
+        "title": " Gold Event",
+        "overview": "**Our intimate party was designed to host a small group of guests 2-20(including the guest of honor(s): Such as a birthday, anniversary engaement, small celebration, holiday party, or even for a small wedding!",
+        "party_includes": "**This party includes: A dedicated Party Host, Site: Reservation for 3 hours, decorations, All tables and chair, and set-up/ clean-up;\n Themed Food Package: 4 course meal preapred by our chef, Drinks:2 softdrink choices, water, 2 bottles of wine*.\n And a thank you gift for all Guest.",
+        "qtyguest": "100",
+        "cost": "8000.00"
+    },
+    {
+        "title": " Platinum Event",
+        "overview": "Our intimate party was designed to host a small group of guests 100-350(including the guest of honor(s): Such as a conference, release party, holiday company party, or even for a small wedding!",
+        "party_includes": "**This party includes: A dedicated Party Host, Site: Reservation for 3 hours, decorations, All tables and chair, and set-up/ clean-up;\n Themed Food Package: 4 course meal preapred by our chef, Drinks:2 softdrink choices, water, 2 bottles of wine*.\n And a thank you gift for all Guest.",
+        "qtyguest": "350",
+        "cost": "50000.00"
+    }
+]

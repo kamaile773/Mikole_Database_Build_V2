@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Welcome to Mikole Event Central{% endblock %}
+
+{% block body %}
+  <h1>Welcome to Mikole Event Central</h1>
+  <h2 >Where we take care of all the details that go into trowing an event.</h2>
+  <h3>Bit by Bit!</h3>
+  
+  <body>
+    <ul id="Navigation">
+      <li><a href="/partypackages">Click Here to See Our Event Packages.</a></li>
+      {% for party in party_packages_list %}
+        <p>{{party.title}}</p>
+      {% endfor %}
+    </ul>
+  
+  <button style="margin:10px" type="button" onclick="location.href='/staffer_login';"class="btn btn-warning">Staff Login</button>
+
+  
+  
+{% endblock %}
