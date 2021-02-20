@@ -102,7 +102,7 @@ lots_party = Event(goh_name = "Kat Huber-Juma", added_details= "Just Because She
 
 # Create Test PartyStaffer
 
-lots_party_staffers = ParrtyStaffer(event=lots_party, staffer=kjoe_staff)
+lots_party_staffers = PartyStaffer(event=lots_party, staffer=kjoe_staff)
 
 
 db.session.add(kjoe_staff)

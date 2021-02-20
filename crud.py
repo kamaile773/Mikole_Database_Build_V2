@@ -28,34 +28,6 @@ def get_partypackages_by_id(purchase_id):
 
     return Party_Package.query.get(purchase_id)
 
-
-def get_staffers():
-    """Return all partypackages."""
-
-    return Party_Package.query.all()
-
-def get_partypackages_by_id(purchase_id):
-    """Return Party Package by PK."""
-
-    return Party_Package.query.get(purchase_id)
-def create_partypackages(title, overview, party_includes, qty_of_guest, cost):
-    """Create and return a new party package."""
-
-    partypackage = Party_Package(title=title, overview=overview, party_includes=party_includes, qtyguest=qtyguest, cost=cost)
-
-    db.session.add(partypackage)
-    db.session.commit()
-
-    return partypackage
-
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)

@@ -6,6 +6,7 @@ from model import connect_to_db
 import crud
 
 app = Flask(__name__)
+app.secret_key = 'nihq8ruwetu&(*^iaifj'
 
 
 @app.route("/")
@@ -37,29 +38,32 @@ def show_partypackages(purchase_id):
 
 #Create routes for staffers: View all, GET individuals, Create new staff, Staff login"""
 
-@app.route('/staffer')
-def all_staffer():
-    """View all staffer."""
+@app.route('/staffers')
+def all_staffers():
+    """View all Staffers."""
 
     staffers = crud.get_staffers()
 
-    return render_template('Staff/staffers.html', staffers=staffers)
+    return render_template(staffers=staffers)
 
-@app.route('/staffers', methods=['POST'])
-def create_staffer():
-    """Create a new staffer."""
+@app.route('/staffers', methods=['GET','POST'])
+def staffers_login():
+    """Create a staffer login."""
 
-    phone_num = request.form.get('phone_num')
-    email = request.form.get('email')
+    username = request.form['lname']
+    sphone_num = request.form['phone_num']
 
-    staffer_login = crud.get_user_by_phone_num(phone_num)
-    if staffer_login:
-        flash('Cannot create an account with that 10 digit phone number. Try again.')
-    else:
-        crud.create_staffer_login(phone_num,email)
-        flash('Account created! Please log in with your 10 digit phone number.')
+    staffer_login_pn = crud.get_staff_by_phone_num(phone_num)
+    # option 1 on if statement
+    
+    if request.method == 'POST':
+        if staffer_login_pn != ['sphone_num']:
+            flash('Wrong password!')
+        else:
+            flash(f'You are logged in as {username}.')
+            return redirect('Staff/staffers_layout.html')
+    return render_template('homepage.html', staffer_login_pn=staffer_login_pn)
 
-    return redirect('/')
 
 @app.route('/staffers/<staff_id>')
 def show_staffer(staff_id):
@@ -129,26 +133,44 @@ def show_staffer(staff_id):
 
 #     return redirect('/')
 
-# @app.route('Party Packages/partypackages')
-# def list_party_packages():
-#     """List all Party Packages."""
+# Events Routes
+# @app.route('/events')
+# def create_events():
+#     """Create an Event"""
 
-#     party_packages = crud.get_partypackages()
+#     """Tracking order cost"""
+#     selected_partypackage = 0
 
-#     return render_template('party_packages.html', partypackages=partypackages)
+#     """create a list of party package selection"""
+#     party_package = []
 
-# @app.route('Party Packages/partypackages/<purchase_id>')
-# def show_partypackages(purchase_id):
-#     """Show details on a particular party package."""
+#     """Get event dictionary out of session"""
+#     event_cart = session.get("event", {})
 
-#     partypackages = crud.get_partypackages_by_id(purchase_id)
+#     """Loop over the event dictionary"""
+#     for event_id in 
 
-#     return render_template('partypackages_details.html', partypackage=partypackage)
+
+# @app.route('/events/<event_id>')
+# def show_event(event_id):
+#     """Show details on a particular event."""
+
+#     event = crud.get_event_by_id(event_id)
+
+#     return render_template('event_details.html', event=event)
+
+# @app.route('/events')
+# def all_events():
+#     """View all events."""
+
+#     events = crud.get_events()
+
+#     return render_template('all_events.html', events=events)
 
 
 
 
 
 if __name__ == '__main__':
-    #connect_to_db(app)
+    connect_to_db(app)
     app.run(host='0.0.0.0', debug=True)

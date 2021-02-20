@@ -39,13 +39,14 @@ class Staffer(db.Model):
     def __repr__(self):
         return f'<Staffer staff_id={self.staff_id} dept={self.dept} fname={self.fname} lname={self.lname} location={self.location}>'
 
+
 class PartyStaffer(db.Model):
     """Party Staff Members."""
 
     __tablename__ = 'partystaffers'
 
     partystaff_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    event_id = db.Column(db.Integer, db.ForeignKey('events.purchase_id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('events.event_id'))
     staffer_id = db.Column(db.Integer, db.ForeignKey('staffers.staff_id'))
 
     event = db.relationship('Event', backref='partystaffers')
@@ -53,6 +54,7 @@ class PartyStaffer(db.Model):
 
     def __repr__(self):
         return f'<PartyStaffer partystaff_id={self.partystaff_id}>'
+
 
 class Client(db.Model):
     """A user. Class will include Clients Info and Event Needs."""
@@ -81,11 +83,9 @@ class Event(db.Model):
     event_location = db.Column(db.String)
     purchase_id = db.Column(db.Integer, db.ForeignKey('partypackages.purchase_id'))
     client_id = db.Column(db.Integer, db.ForeignKey('clients.client_id'))
-    partystaff_id = db.Column(db.Integer, db.ForeignKey('partystaffers.partystaff_id'))
     
     client = db.relationship('Client', backref='events')
     partypackage = db.relationship('Party_Package', backref='events')
-    partystaffers = db.relationship('PartyStaffer', backref='events')
 
 
 def connect_to_db(flask_app, db_uri='postgresql:///mikole', echo=True):
@@ -129,17 +129,7 @@ if __name__ == '__main__':
 #     s.quit()   
 
 
-# class PartyStaffer(db.Model):
-#     """Party Staff Members."""
 
-#     __tablename__ = 'partystaffers'
-
-#     partystaff_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-#     event_id = db.Column(db.Integer, db.ForeignKey('events.purchase_id'))
-#     staffer_id = db.Column(db.Integer, db.ForeignKey('staffers.staff_id'))
-    
-#     def __repr__(self):
-#         return f'<PartyStaffer partystaff_id={self.partystaff_id}>'
 
 # """Define Party Staffer Email to send from event selection."""
 
@@ -162,20 +152,3 @@ if __name__ == '__main__':
 # #     # terminating the session 
 # #     s.quit()     
 
-# class Event(db.Model):
-#     """Unique Event selection set by Client."""
-
-#     __tablename__ = 'events'
-    
-#     event_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-#     goh_name = db.Column(db.String(50))
-#     date_of_event = db.Column(db.DateTime)
-#     added_details = db.Column(db.String)
-#     event_location = db.Column(db.String)
-#     purchase_id = db.Column(db.Integer, db.ForeignKey('partypackages.purchase_id'))
-#     client_id = db.Column(db.Integer, db.ForeignKey('clients.user_id'))
-#     partystaff_id = db.Column(db.Integer, db.ForeignKey('partystaffers.partystaff_id'))
-    
-#     client = db.relationship('Client', backref='events')
-#     partypackage = db.relationship('Party_Package', backref='events')
-#     partystaff = db.relationshp('Partystaffer', backref='events')
