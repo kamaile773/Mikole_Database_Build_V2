@@ -1,0 +1,68 @@
+{% extends "client_layout.html" %}
+
+{% block body %}
+<head> 
+    <title> Create Event </title>
+</head>
+<body>
+    <hl> Enter Event Details Here: </hl>
+
+        <form  method="post" action="/create_event">
+
+            <div>
+            <label class="label-input" for="goh_name">Tell us who the event is for *</label>
+                <input id="goh_name" type="text" name="goh_name" placeholder="First name">
+            </div>
+
+            <div class="dropdown"><label>Please confirm the Event of your choice: *</label>
+                <button class="dropbtn">Event Dropdown</button>
+                <div class="dropbtn-partypackage">
+                    {% for party in party_packages_list %}
+                        <p>{{party.title}}</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <label class="label-input" for="date_of_event">Enter Date that you would like to reserve*</label>
+            <div>
+                <input id="date_of_event" type="datetime" name="date_of_event" placeholder="MM/DD/YYYY"
+                onfocus="(this.type='date')"
+                onblur=>"(this.type='test')">
+            </div>
+
+            <label class="label-input" for="added_details">Enter any additional information *</label>
+            <div> 
+                <textarea id="added_details" name="added_details" 
+                    style="font-family:sans-serif;font-size: 1.2em;">e.g. Food Allergys; Special Arrangements Needed
+                </textarea>
+            </div>
+
+            <label class="label-input" for="event_location">Desired Location *</label>
+            <div>
+                <form action="/events.event_location" >
+                    <p>Please select your Location:</p>
+                    <input type="radio" id="CA" name="event_location" value="Oakland">
+                    <label for="Oakland">Oakland</label><br>
+                    <input type="radio" id="CA" name="event_location" value="Los Angeles">
+                    <label for="Los Angeles">Los Angeles</label><br>               
+                    <input type="radio" id="CA" name="event_location" value="Napa">
+                    <label for="Napa">Napa</label><br>
+                    <input type="radio" id="NV" name="event_location" value="Las Vegas">
+                    <label for="Las Vegas">Las Vegas</label><br>
+                    <input type="radio" id="HI" name="event_location" value="Honolulu">
+                    <label for="Honolulu">Honolulu</label><br>
+                    <input type="radio" id="TX" name="event_location" value="Houston">
+                    <label for="Houston">Houston</label><br>
+                    <input type="radio" id="NY" name="event_location" value="New York">
+                    <label for="New York">New York</label><br>
+                    <input type="radio" id="FL" name="event_location" value="Orlando">
+                    <label for="Orlando">Orlando</label><br>
+                    <input type="radio" id="GA" name="event_location" value="Atlanta">
+                    <label for="Atlanta">Atlanta</label><br>
+                </form>
+            </div>
+            </dl>
+            <button style="margin:10px" type="button" onclick="location.href='/clientthank';"class="btn btn-warning">Confirm</button>
+        </form>
+    </body>
+{% endblock %}

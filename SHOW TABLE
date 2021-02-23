@@ -1,0 +1,46 @@
+Available help:
+  ABORT                            CLUSTER                          CREATE VIEW                      DROP USER MAPPING
+  ALTER AGGREGATE                  COMMENT                          DEALLOCATE                       DROP VIEW
+  ALTER COLLATION                  COMMIT                           DECLARE                          END
+  ALTER CONVERSION                 COMMIT PREPARED                  DELETE                           EXECUTE
+  ALTER DATABASE                   COPY                             DISCARD                          EXPLAIN
+  ALTER DEFAULT PRIVILEGES         CREATE ACCESS METHOD             DO                               FETCH
+  ALTER DOMAIN                     CREATE AGGREGATE                 DROP ACCESS METHOD               GRANT
+  ALTER EVENT TRIGGER              CREATE CAST                      DROP AGGREGATE                   IMPORT FOREIGN SCHEMA
+  ALTER EXTENSION                  CREATE COLLATION                 DROP CAST                        INSERT
+  ALTER FOREIGN DATA WRAPPER       CREATE CONVERSION                DROP COLLATION                   LISTEN
+  ALTER FOREIGN TABLE              CREATE DATABASE                  DROP CONVERSION                  LOAD
+  ALTER FUNCTION                   CREATE DOMAIN                    DROP DATABASE                    LOCK
+  ALTER GROUP                      CREATE EVENT TRIGGER             DROP DOMAIN                      MOVE
+  ALTER INDEX                      CREATE EXTENSION                 DROP EVENT TRIGGER               NOTIFY
+  ALTER LANGUAGE                   CREATE FOREIGN DATA WRAPPER      DROP EXTENSION                   PREPARE
+  ALTER LARGE OBJECT               CREATE FOREIGN TABLE             DROP FOREIGN DATA WRAPPER        PREPARE TRANSACTION
+  ALTER MATERIALIZED VIEW          CREATE FUNCTION                  DROP FOREIGN TABLE               REASSIGN OWNED
+  ALTER OPERATOR                   CREATE GROUP                     DROP FUNCTION                    REFRESH MATERIALIZED VIEW
+  ALTER OPERATOR CLASS             CREATE INDEX                     DROP GROUP                       REINDEX
+  ALTER OPERATOR FAMILY            CREATE LANGUAGE                  DROP INDEX                       RELEASE SAVEPOINT
+  ALTER POLICY                     CREATE MATERIALIZED VIEW         DROP LANGUAGE                    RESET
+  ALTER PUBLICATION                CREATE OPERATOR                  DROP MATERIALIZED VIEW           REVOKE
+  ALTER ROLE                       CREATE OPERATOR CLASS            DROP OPERATOR                    ROLLBACK
+  ALTER RULE                       CREATE OPERATOR FAMILY           DROP OPERATOR CLASS              ROLLBACK PREPARED
+  ALTER SCHEMA                     CREATE POLICY                    DROP OPERATOR FAMILY             ROLLBACK TO SAVEPOINT
+  ALTER SEQUENCE                   CREATE PUBLICATION               DROP OWNED                       SAVEPOINT
+  ALTER SERVER                     CREATE ROLE                      DROP POLICY                      SECURITY LABEL
+  ALTER STATISTICS                 CREATE RULE                      DROP PUBLICATION                 SELECT
+  ALTER SUBSCRIPTION               CREATE SCHEMA                    DROP ROLE                        SELECT INTO
+  ALTER SYSTEM                     CREATE SEQUENCE                  DROP RULE                        SET
+  ALTER TABLE                      CREATE SERVER                    DROP SCHEMA                      SET CONSTRAINTS
+  ALTER TABLESPACE                 CREATE STATISTICS                DROP SEQUENCE                    SET ROLE
+  ALTER TEXT SEARCH CONFIGURATION  CREATE SUBSCRIPTION              DROP SERVER                      SET SESSION AUTHORIZATION
+  ALTER TEXT SEARCH DICTIONARY     CREATE TABLE                     DROP STATISTICS                  SET TRANSACTION
+  ALTER TEXT SEARCH PARSER         CREATE TABLE AS                  DROP SUBSCRIPTION                SHOW
+  ALTER TEXT SEARCH TEMPLATE       CREATE TABLESPACE                DROP TABLE                       START TRANSACTION
+  ALTER TRIGGER                    CREATE TEXT SEARCH CONFIGURATION DROP TABLESPACE                  TABLE
+  ALTER TYPE                       CREATE TEXT SEARCH DICTIONARY    DROP TEXT SEARCH CONFIGURATION   TRUNCATE
+  ALTER USER                       CREATE TEXT SEARCH PARSER        DROP TEXT SEARCH DICTIONARY      UNLISTEN
+  ALTER USER MAPPING               CREATE TEXT SEARCH TEMPLATE      DROP TEXT SEARCH PARSER          UPDATE
+  ALTER VIEW                       CREATE TRANSFORM                 DROP TEXT SEARCH TEMPLATE        VACUUM
+  ANALYZE                          CREATE TRIGGER                   DROP TRANSFORM                   VALUES
+  BEGIN                            CREATE TYPE                      DROP TRIGGER                     WITH
+  CHECKPOINT                       CREATE USER                      DROP TYPE                        
+  CLOSE                            CREATE USER MAPPING              DROP USER                        

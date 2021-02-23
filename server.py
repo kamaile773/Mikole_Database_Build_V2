@@ -63,7 +63,6 @@ def staffer_login():
     phone_num = request.form['phone_num']
 
     staffer_login_pn = crud.get_staff_by_phone_num(phone_num)
-    # option 1 on if statement
     
     if staffer_login_pn == None:
         flash('Wrong password!')
@@ -94,95 +93,80 @@ def show_staffer(staff_id):
 
 """Clients Routes"""
 
-# @app.route('/clients')
-# def all_clients():
-#     """View all users."""
+@app.route('/client_registration')
+def client_registration():
+    """Create a client profile for event and database"""
 
-#     clients = crud.get_clients()
-
-#     return render_template('clients.html', clients=clients)
-
-
-# @app.route('/clients', methods=['GET','POST'])
-# def register_clients():
-#     """Create a new client."""
-
-#    if request.method == 'POST':
-#     cfname = request.form.get('firstname')
-#     clname = request.form.get('lastname')
-#     cfullname = cfname+" " +lastname
-#     cphone_num = request.form.get('phone_num')
-#     cemail = request.form.get('email')
-#     clientevent = time.localtime()
-#     client_checkin = time.strftime("%H:%M:%S", clientevent)
+    return render_template('client_index.html')
     
-#     client = crud.get_client_by_phone_num(phone_num)
-#     if client:
-#         flash('Cannot create an account with that phone number. Try again.')
-#     else:
-#         crud.create_client(name, phone_num)
-#         flash('Account created! Please log in with your phone number.')
+@app.route('/client_registration', methods=['POST'])
+def register_client():
+    """Create a new client."""
 
-#     return redirect('/')
-
-# @app.route('/clients/<client_id>')
-# def show_client(client_id):
-#     """Show details on a particular user."""
-
-#     client = crud.get_client_by_id(client_id)
-
-#     return render_template('client_details.html', client=client)
-
-# @app.route('/clients', methods=['GET','POST'])
-# def register_clients():
-#     """Create a new client."""
-#    if request.method == 'POST':
-#     name = request.form.get('name')
-#     phone_num = request.form.get('phone_num')
-#     email = request.form.get('email')
+    name = request.form['name']
+    client_phone_num = request.form['client_phone_num']
+    email = request.form['email']
     
-#     client = crud.get_client_by_phone_num(phone_num)
-#     if client:
-#         flash('Cannot create an account with that phone number. Try again.')
-#     else:
-#         crud.create_client(name, phone_num)
-#         flash('Account created! Please log in with your phone number.')
+    client = crud.add_client(name, client_phone_num, email)
+    
+    if client != None:
+        flash('Account created!')
+    return render_template('event_create.html')
 
-#     return redirect('/')
+@app.route('/clients')
+def all_clients():
+    """View all users."""
 
-# Events Routes
-# @app.route('/events')
-# def create_events():
-#     """Create an Event"""
+    clients = crud.get_clients()
 
-#     """Tracking order cost"""
-#     selected_partypackage = 0
+    return render_template(clients=clients)
 
-#     """create a list of party package selection"""
-#     party_package = []
+@app.route('/clients/<client_id>')
+def show_client(client_id):
+    """Show details on a particular user."""
 
-#     """Get event dictionary out of session"""
-#     event_cart = session.get("event", {})
+    client_ids = crud.get_client_by_id(client_id)
 
-#     """Loop over the event dictionary"""
-#     for event_id in 
+    return render_template(client_ids=client_ids)
+
+@app.route('/clientthank')
+def clientthank():
+    """clientthank"""
+
+    return redirect('/')
 
 
-# @app.route('/events/<event_id>')
-# def show_event(event_id):
-#     """Show details on a particular event."""
+"""Events Routes"""
 
-#     event = crud.get_event_by_id(event_id)
+@app.route('/create_event')
+def create_event2():
+    return render_template('event_create.html')
 
-#     return render_template('event_details.html', event=event)
 
-# @app.route('/events')
-# def all_events():
-#     """View all events."""
+@app.route('/create_event', methods=['POST'])
+def create_event():
+    """Create an Event"""
+    
+    goh_name = request.form['goh_name']
+    partypackage = request.form['partypackage']
+    date_of_event = request.form['date_of_event']
+    added_details = request.form['added_details']
+    event_location = request.form['event_location']
+    client = request.form['client']
+    
+    
+    event = crud.add_event(goh_name=goh_name, partypackage=partypackage, date_of_event=date_of_event, event_location=event_location, client=client)
 
-#     events = crud.get_events()
+    return render_template('client_thank.html')
 
-#     return render_template('all_events.html', events=events)
+@app.route('/events/<event_id>')
+def show_event(event_id):
+    """Show details on a particular event."""
+
+    event = crud.get_event_by_id(event_id)
+
+    return render_template(event_id=event_id)
+
 
 
 

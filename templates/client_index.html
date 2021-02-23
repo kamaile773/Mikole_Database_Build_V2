@@ -1,0 +1,19 @@
+{% extends "client_layout.html" %}
+{% block body %}
+  <h1>We are so EXCITED to Host your next Event</h1>
+  <p>But First we would like to get to know you a little.</p>
+  <li>Please fill out the below information to get you started:</li>
+    <form method="post" action="/client_registration">
+      <dl>
+        <dt>First and Last Name:
+        <dd><input type="text" name="name">
+        <dt>10 Digit Phone Number(No Spaces):
+        <dd><input type="text" name="client_phone_num"> 
+        <dt>Email Address:
+        <dd><input type="text" name="email"> 
+      </dl>
+      <button style="margin:10px" type="button" onclick="location.href='/create_event';"class="btn btn-warning">Submit Profile</button>
+    </form>
+{% endblock %}
+
+
