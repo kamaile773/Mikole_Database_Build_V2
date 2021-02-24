@@ -50,6 +50,10 @@ def get_clients():
 
     return Client.query.all()
 
+def get_client_record(client_id):
+
+    return Client.query.get(client_id)
+
 def get_event_by_id(event_id):
     """Get Event By Id"""
 

@@ -108,7 +108,7 @@ def register_client():
     email = request.form['email']
     
     client = crud.add_client(name, client_phone_num, email)
-    
+
     if client != None:
         flash('Account created!')
     return render_template('event_create.html')
@@ -125,7 +125,7 @@ def all_clients():
 def show_client(client_id):
     """Show details on a particular user."""
 
-    client_ids = crud.get_client_by_id(client_id)
+    client_ids = crud.get_client_record(client_id)
 
     return render_template(client_ids=client_ids)
 
@@ -133,14 +133,19 @@ def show_client(client_id):
 def clientthank():
     """clientthank"""
 
-    return redirect('/')
+    return render_template('client_thank.html')
 
 
 """Events Routes"""
 
 @app.route('/create_event')
 def create_event2():
-    return render_template('event_create.html')
+
+    party_packages_list = crud.get_partypackages()
+    client = crud.get_client_record(request.args.get('client_id'))
+
+
+    return render_template('event_create.html', party_packages_list=party_packages_list,client=client)
 
 
 @app.route('/create_event', methods=['POST'])
@@ -153,7 +158,6 @@ def create_event():
     added_details = request.form['added_details']
     event_location = request.form['event_location']
     client = request.form['client']
-    
     
     event = crud.add_event(goh_name=goh_name, partypackage=partypackage, date_of_event=date_of_event, event_location=event_location, client=client)
 
@@ -172,6 +176,7 @@ def show_event(event_id):
 
 
 
+
 if __name__ == '__main__':
     connect_to_db(app)
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='localhost', debug=True)
