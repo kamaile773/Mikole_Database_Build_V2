@@ -38,12 +38,12 @@ def get_staff_by_phone_num(phone_num):
 
 def add_client(name, client_phone_num, email):
     """Registration"""
-    add_client_reg = Client(name=name, client_phone_num=client_phone_num, email=email)
+    new_client = Client(name=name, client_phone_num=client_phone_num, email=email)
 
-    db.session.add(add_client_reg)
+    db.session.add(new_client)
     db.session.commit()
 
-    return add_client_reg
+    return new_client
 
 def get_clients():
     """Return all users."""

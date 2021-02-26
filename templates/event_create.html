@@ -5,7 +5,7 @@
     <title> Create Event </title>
 </head>
 <body>
-    <h1> Hello {{ client.name }}, <br>
+    <h1> Hello {{session['clientName']}}, <br>
      Mikole is honored to host your next event,<br>
      Lets enter Event Details here: </h1><br>
 
@@ -41,7 +41,7 @@
 
             <div>
             <label class="label-input" for="event_location">Desired Location *</label>
-                <form action="/events.event_location" >
+                 action="/events.event_location" >
                     <p>Please select your Location:</p>
                     <input type="radio" id="CA" name="event_location" value="Oakland">
                     <label for="Oakland">Oakland, CA</label><br>
@@ -61,10 +61,10 @@
                     <label for="Orlando">Orlando, FL</label><br>
                     <input type="radio" id="GA" name="event_location" value="Atlanta">
                     <label for="Atlanta">Atlanta, GA</label><br>
-                </form>
-            </div>
-            </dl>
-            <button style="margin:10px" type="button" onclick="location.href='/clientthank';"class="btn btn-warning">Confirm Details</button>
+
+                    <input style="margin:10px" type="submit" class="btn btn-warning">Confirm Details</input>
+                
+        
         </form>
     </body>
 {% endblock %}

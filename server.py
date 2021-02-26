@@ -1,23 +1,17 @@
 """Mikole party service application Flask server"""
 
 from flask import Flask, render_template, redirect, flash, session, request
+from flask_session import Session
 import jinja2
 from model import connect_to_db
 import crud
-# import psycopg2
-# try:
-#     conn = psycopg2.connect(database="app", user="kjoe", password="testing1234", host="localhost")
-#     print("connected")
-# except:
-#     print("Nope, Not Today")
-# mycursor =conn.cursor()
 
 app = Flask(__name__)
 app.secret_key = 'nihq8ruwetu&(*^iaifj'
 
 
+
 @app.route("/")
-#@app.route("/homepage", methods=["GET", "POST"])
 def homepage():
     """Return homepage."""
 
@@ -103,15 +97,21 @@ def client_registration():
 def register_client():
     """Create a new client."""
 
-    name = request.form['name']
-    client_phone_num = request.form['client_phone_num']
-    email = request.form['email']
-    
-    client = crud.add_client(name, client_phone_num, email)
+    name = request.form.get('name')
+    client_phone_num = request.form.get('client_phone_num')
+    email = request.form.get('email')
+    print(name, client_phone_num, email)
 
-    if client != None:
+    new_client = crud.add_client(name, client_phone_num, email)
+
+    if new_client is not None:
         flash('Account created!')
-    return render_template('event_create.html')
+        session['clientName'] = new_client.name
+        party_packages_list = crud.get_partypackages()
+        return render_template('event_create.html', new_client=new_client, party_packages_list=party_packages_list)
+    else:
+        flash('No information entered please try again')
+        return redirect('/')
 
 @app.route('/clients')
 def all_clients():
@@ -129,23 +129,42 @@ def show_client(client_id):
 
     return render_template(client_ids=client_ids)
 
-@app.route('/clientthank')
-def clientthank():
-    """clientthank"""
 
-    return render_template('client_thank.html')
+# @app.route('/clientthank')
+# def clientthank():
+#     """clientthank"""
+
+#     return render_template('client_thank.html')
+
+# """Fist Try at Flask sessions: @app.route('/session-clientid/set')
+# def set_session_clientid():
+#     """Set value for session['clientid']."""
+
+#     session['client_id'] = '1'
+
+#     return redirect('event_create.html')
+
+# @app.route('/session-clientid/get')
+# def get_session_clientid():
+#     """Get value of clientid out of session"""
+   
+#     client_id = session.get('client_id', None)
+    
+#     return client_id
 
 
 """Events Routes"""
 
 @app.route('/create_event')
-def create_event2():
-
+def create_event_get():
     party_packages_list = crud.get_partypackages()
-    client = crud.get_client_record(request.args.get('client_id'))
 
+    if 'client' in session:
+        clientname = session['client']
+        return render_template('event_create.html', clientname=clientname, party_packages_list=party_packages_list)
+    
+    return render_template('event_create.html', party_packages_list=party_packages_list)
 
-    return render_template('event_create.html', party_packages_list=party_packages_list,client=client)
 
 
 @app.route('/create_event', methods=['POST'])
@@ -157,11 +176,11 @@ def create_event():
     date_of_event = request.form['date_of_event']
     added_details = request.form['added_details']
     event_location = request.form['event_location']
-    client = request.form['client']
+    #client = request.form['client']
     
-    event = crud.add_event(goh_name=goh_name, partypackage=partypackage, date_of_event=date_of_event, event_location=event_location, client=client)
+    event = crud.add_event(goh_name=goh_name, partypackage=partypackage, date_of_event=date_of_event, event_location=event_location)
 
-    return render_template('client_thank.html')
+    return render_template('client_thank.html', event=event)
 
 @app.route('/events/<event_id>')
 def show_event(event_id):
@@ -169,14 +188,11 @@ def show_event(event_id):
 
     event = crud.get_event_by_id(event_id)
 
-    return render_template(event_id=event_id)
-
-
-
+    return render_template('client_thank.html', event=event)
 
 
 
 
 if __name__ == '__main__':
     connect_to_db(app)
-    app.run(host='localhost', debug=True)
+    app.run(host='0.0.0.0', debug=True)

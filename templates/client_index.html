@@ -6,13 +6,13 @@
     <form method="post" action="/client_registration">
       <dl>
         <dt>First and Last Name:
-        <dd><input type="text" name="name">
+        <dd><input type="text" name="name" id="name" required>
         <dt>10 Digit Phone Number(No Spaces):
-        <dd><input type="text" name="client_phone_num"> 
+        <dd><input type="text" name="client_phone_num" id="client_phone_num" required> 
         <dt>Email Address:
-        <dd><input type="text" name="email"> 
+        <dd><input type="text" name="email" id="email" required> 
       </dl>
-      <button style="margin:10px" type="button" onclick="location.href='/create_event';"class="btn btn-warning">Submit Profile</button>
+      <button style="margin:10px" type="submit" "class="btn btn-warning">Submit Profile</button>
       
     </form>
 {% endblock %}
