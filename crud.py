@@ -35,6 +35,10 @@ def get_partypackage(title):
 
     return package.purchase_id
 
+def get_staffers():
+
+    return Staffer.query.all()
+
 def get_staff_by_phone_num(phone_num):
     """Return Staff by their phone number."""
 
@@ -60,10 +64,10 @@ def get_client_record(client_id):
 
     return Client.query.get(client_id)
 
-def get_client_by_phone_num(phone_num):
+def get_client_phone_num(client_phone_num):
     """Return client by their phone number."""
 
-    return Client.query.filter_by(phone_num=phone_num).first()
+    return Client.query.filter_by(client_phone_num=client_phone_num).first()
 
 def get_client_id(email):
 
@@ -90,6 +94,12 @@ def get_events():
     """Return all events."""
 
     return Event.query.all()
+
+def get_events_by_location(staffer):
+
+    staffRecord = Staffer.query.filter_by(lname=staffer).first()
+
+    return Event.query.filter_by(event_location=staffRecord.location)
 
 
 if __name__ == '__main__':

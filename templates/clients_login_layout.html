@@ -1,0 +1,15 @@
+{% extends "client_login_index.html" %}
+
+{% block body %}
+  <h1>Login</h1>
+
+  <form method=post>
+    <dl>
+      <dt>Username:
+      <dd><input type=text name=username value="{{session['clientName']}}">
+      <dt>Password:
+      <dd><input type=text name=client_login_pn value="{{ request.form.client_phone_num }}">
+    </dl>
+    <p><input type=submit value=Login>
+  </form>
+{% endblock %}

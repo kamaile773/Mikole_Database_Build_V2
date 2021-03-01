@@ -60,10 +60,12 @@ def staffer_login():
     
     if staffer_login_pn == None:
         flash('Wrong password!')
+        session['staffer'] = username
         return redirect('/staffer_login')
     else:
         flash(f'You are logged in as {username}.')
-    return redirect('/')
+
+    return redirect('/scheduled_events')
 
 #Passing this string /staffer_login as a agru to app.route= means that when we go localhost:5000/staffer_login it directs it here
 @app.route('/staffer_login')
@@ -108,6 +110,30 @@ def register_client():
     else:
         flash('No information entered please try again')
         return redirect('/')
+
+#Client log in Feature
+@app.route('/client_login', methods=['POST'])
+def client_login():
+    """Create a client login."""
+
+    username = request.form['username']
+    client_phone_num = request.form['client_phone_num']
+
+    client_login_pn = crud.get_client_phone_num(client_phone_num)
+    
+    if client_login_pn == None:
+        flash('Wrong password!')
+        return redirect('/client_login')
+    else:
+        flash(f'You are logged in as {username}.')
+    return redirect('/')
+        #NEED TO ADD A QUEREY PAGE FOR PARTY 
+
+@app.route('/client_login')
+def clients_login():
+    """Create a client login."""
+
+    return render_template('client_login_index.html')
 
 @app.route('/clients')
 def all_clients():
@@ -170,7 +196,12 @@ def show_event(event_id):
 
     return render_template('client_thank.html', event=event)
 
+@app.route('/scheduled_events')
+def show_staffers_events():
 
+    events = crud.get_events_by_location('Joe')  #session['staffer'])
+    
+    return render_template('scheduled_events.html', events=events)
 
 
 if __name__ == '__main__':

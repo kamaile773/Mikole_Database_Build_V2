@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Welcome to Mikole Event Central{% endblock %}
+
+{% block body %}
+  <h1>Here are the event scheduled</h1>
+  
+  <body>
+    <ul id="Navigation">
+      {% for party in events %}
+        <p>{{ party }}</p>
+      {% endfor %}
+    </ul>
+
+  
+  
+{% endblock %}
