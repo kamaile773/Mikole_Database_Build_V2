@@ -65,15 +65,12 @@ def staffer_login():
         flash(f'You are logged in as {username}.')
     return redirect('/')
 
-
-
 #Passing this string /staffer_login as a agru to app.route= means that when we go localhost:5000/staffer_login it directs it here
 @app.route('/staffer_login')
 def staffers_login():
     """Create a staffer login."""
 
     return render_template('staffer_index.html')
-
 
 @app.route('/staffers/<staff_id>')
 def show_staffer(staff_id):
@@ -84,9 +81,7 @@ def show_staffer(staff_id):
     return render_template(staffer_info=staffer_info)
 
 
-
 """Clients Routes"""
-
 @app.route('/client_registration')
 def client_registration():
     """Create a client profile for event and database"""
@@ -107,6 +102,7 @@ def register_client():
     if new_client is not None:
         flash('Account created!')
         session['clientName'] = new_client.name
+        session['clientEmail'] = new_client.email
         party_packages_list = crud.get_partypackages()
         return render_template('event_create.html', new_client=new_client, party_packages_list=party_packages_list)
     else:
@@ -136,32 +132,14 @@ def show_client(client_id):
 
 #     return render_template('client_thank.html')
 
-# """Fist Try at Flask sessions: @app.route('/session-clientid/set')
-# def set_session_clientid():
-#     """Set value for session['clientid']."""
-
-#     session['client_id'] = '1'
-
-#     return redirect('event_create.html')
-
-# @app.route('/session-clientid/get')
-# def get_session_clientid():
-#     """Get value of clientid out of session"""
-   
-#     client_id = session.get('client_id', None)
-    
-#     return client_id
-
-
 """Events Routes"""
 
 @app.route('/create_event')
 def create_event_get():
     party_packages_list = crud.get_partypackages()
-
-    if 'client' in session:
-        clientname = session['client']
-        return render_template('event_create.html', clientname=clientname, party_packages_list=party_packages_list)
+    #clientid = crud.get_client_id(session['clientEmail'])
+    #session['client'] = client_id
+    #session['clientName'] = new_client.name
     
     return render_template('event_create.html', party_packages_list=party_packages_list)
 
@@ -171,14 +149,16 @@ def create_event_get():
 def create_event():
     """Create an Event"""
     
+    client_id = crud.get_client_id(session['clientEmail'])
     goh_name = request.form['goh_name']
     partypackage = request.form['partypackage']
+    purchase_id = crud.get_partypackage(partypackage)
     date_of_event = request.form['date_of_event']
     added_details = request.form['added_details']
     event_location = request.form['event_location']
-    #client = request.form['client']
+
     
-    event = crud.add_event(goh_name=goh_name, partypackage=partypackage, date_of_event=date_of_event, event_location=event_location)
+    event = crud.add_event(goh_name, purchase_id, date_of_event, event_location, client_id, added_details)
 
     return render_template('client_thank.html', event=event)
 
