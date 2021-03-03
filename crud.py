@@ -75,6 +75,20 @@ def get_client_id(email):
     
     return client.client_id
 
+def get_client_events(client_phone_num):
+
+    sql = """SELECT partypackages.title, partypackages.overview,
+                events.date_of_event, events.goh_name, events.added_details, events.event_location,
+                clients.name 
+                FROM partypackages , events, clients
+                WHERE partypackages.purchase_id= events.purchase_id 
+                AND clients.client_id = events.client_id 
+                AND clients.client_phone_num = :phone
+    """
+    cursor = db.session.execute(sql, {'phone': client_phone_num})
+
+    return cursor.fetchall()
+
 def get_event_by_id(event_id):
     """Get Event By Id"""
 

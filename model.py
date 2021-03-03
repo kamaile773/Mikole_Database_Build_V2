@@ -81,6 +81,7 @@ class Event(db.Model):
     date_of_event = db.Column(db.DateTime)
     added_details = db.Column(db.String)
     event_location = db.Column(db.String)
+    qtyguest = db.Column(db.Integer)
     purchase_id = db.Column(db.Integer, db.ForeignKey('partypackages.purchase_id'))
     client_id = db.Column(db.Integer, db.ForeignKey('clients.client_id'))
     
@@ -88,7 +89,7 @@ class Event(db.Model):
     partypackage = db.relationship('Party_Package', backref='events')
     
     def __repr__(self):
-        return f'<Event event_id={self.event_id} client={self.client} goh_name={self.goh_name} partypackage={self.partypackage} date_of_event={self.date_of_event} event_location{self.event_location}>'
+        return f'<Event event_id={self.event_id} client={self.client} goh_name={self.goh_name} qtyguest={self.qtyguest} partypackage={self.partypackage} date_of_event={self.date_of_event} event_location{self.event_location}>'
 
 def connect_to_db(flask_app, db_uri='postgresql:///mikole', echo=True):
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri

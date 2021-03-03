@@ -1,6 +1,6 @@
 """Mikole party service application Flask server"""
 
-from flask import Flask, render_template, redirect, flash, session, request
+from flask import Flask, render_template, redirect, flash, session, request, url_for
 from flask_session import Session
 import jinja2
 from model import connect_to_db
@@ -126,7 +126,7 @@ def client_login():
         return redirect('/client_login')
     else:
         flash(f'You are logged in as {username}.')
-    return redirect('/')
+    return redirect(url_for('client_view', client_login_pn=client_login_pn))
         #NEED TO ADD A QUEREY PAGE FOR PARTY 
 
 @app.route('/client_login')
@@ -150,6 +150,21 @@ def show_client(client_id):
     client_ids = crud.get_client_record(client_id)
 
     return render_template(client_ids=client_ids)
+
+@app.route ('/clientevents')
+def client_view():
+    """Display clients event"""
+
+    #client_id = 65 #'8088081122'
+
+    #clientevents = crud.get_event_by_id(8)
+    #partypackage = crud.get_partypackages()
+
+    partyInfo = crud.get_client_events('8088081122') #'client_phone_num')
+
+
+
+    return render_template('client_events.html', partyInfo=partyInfo)
 
 
 # @app.route('/clientthank')
@@ -183,7 +198,6 @@ def create_event():
     added_details = request.form['added_details']
     event_location = request.form['event_location']
 
-    
     event = crud.add_event(goh_name, purchase_id, date_of_event, event_location, client_id, added_details)
 
     return render_template('client_thank.html', event=event)
