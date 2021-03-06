@@ -180,16 +180,15 @@ def client_view():
 @app.route('/clientthank')
 def clientthank():
     """clientthank"""
-    # msg = Message("Thank you for your reservation! Your Event Confirmation# is ME07(eventconf#)")
-    
+
     message = send_sms.text_client.messages.create(
         to="+15103773852", 
         from_="+18082078922",
-        body=f("Hello, Thank you for your reservation! Your Event Confiramtion # is ME")
+        body="Hello, Thank you for your reservation! Your Event Confirmation # is ME"
+        )
 
-    print('\n************message.sid******************')
-    print(message.sid)
-
+    # print('\n************message.sid******************')
+    # print(message.sid)
     return render_template('client_thank.html')
 
 """Events Routes"""
@@ -220,7 +219,9 @@ def create_event():
 
     event = crud.add_event(goh_name, purchase_id, date_of_event, qtyguest, event_location, client_id, added_details)
 
+
     return redirect('/clientthank')
+
 
 @app.route('/events/<event_id>')
 def show_event(event_id):

@@ -1,2 +1,3 @@
 requirements.text
 seed_sms.py
+*.env
