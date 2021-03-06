@@ -142,7 +142,7 @@ if __name__ == '__main__':
 # #     # start TLS for security 
 # #     s.starttls() 
 # #     # Authentication 
-# #     s.login("sample_mikola@gmail.com", "testing@123") 
+# #     s.login("sample_mikole@gmail.com", "testing@123") 
     
 
 # #     # message to be sent 
@@ -150,7 +150,7 @@ if __name__ == '__main__':
 # #     subject = "Client has just checked in"
 # #     message = 'Subject: {}\n\n{}'.format(subject, text)
 # #     # sending the mail 
-# #     s.sendmail("sample_mikola@gmail.com", q, message) 
+# #     s.sendmail("sample_mikole@gmail.com", q, message) 
         
 # #     # terminating the session 
 # #     s.quit()     

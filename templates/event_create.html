@@ -32,16 +32,21 @@
                 onfocus="(this.type='date')">
             </div><br>
 
+            <label class="label-input" for="qtyguest">Enter how many guest do you plan to have *</label>
+            <div> 
+                <input id="qtyguest" name="qtyguest" type="number" />
+            </div><br>
+            
             <label class="label-input" for="added_details">Enter any additional information *</label>
             <div> 
-                <textarea id="added_details" name="added_details" 
-                    style="font-family:sans-serif;font-size: 1.2em;">e.g. Special Arrangements Needed
+                <textarea id="added_details" name="added_details" placeholder="e.g. Special Arrangements Needed"
+                    style="font-family:sans-serif;font-size: 1.2em;">
                 </textarea>
             </div><br>
 
             <div>
             <label class="label-input" for="event_location">Desired Location *</label>
-                 action="/events.event_location" >
+
                     <p>Please select your Location:</p>
                     <input type="radio" id="CA" name="event_location" value="Oakland">
                     <label for="Oakland">Oakland, CA</label><br>

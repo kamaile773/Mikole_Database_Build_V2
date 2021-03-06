@@ -94,10 +94,10 @@ def get_event_by_id(event_id):
 
     return Event.query.get(event_id)
 
-def add_event(goh_name, purchase_id, date_of_event, event_location, client_id, added_details):
+def add_event(goh_name, purchase_id, date_of_event, qtyguest, event_location, client_id, added_details):
     """Add Event"""
 
-    add_event = Event(goh_name=goh_name, purchase_id=purchase_id, date_of_event=date_of_event, event_location=event_location, client_id=client_id, added_details=added_details)
+    add_event = Event(goh_name=goh_name, purchase_id=purchase_id, date_of_event=date_of_event, qtyguest=qtyguest,  event_location=event_location, client_id=client_id, added_details=added_details)
 
     db.session.add(add_event)
     db.session.commit()

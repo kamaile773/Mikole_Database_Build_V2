@@ -3,6 +3,8 @@
 from flask import Flask, render_template, redirect, flash, session, request, url_for
 from flask_session import Session
 import jinja2
+import send_sms
+# from flaskext.mail import Message
 from model import connect_to_db
 import crud
 
@@ -60,10 +62,10 @@ def staffer_login():
     
     if staffer_login_pn == None:
         flash('Wrong password!')
-        session['staffer'] = username
         return redirect('/staffer_login')
     else:
         flash(f'You are logged in as {username}.')
+        session['staffer'] = username
 
     return redirect('/scheduled_events')
 
@@ -73,6 +75,12 @@ def staffers_login():
     """Create a staffer login."""
 
     return render_template('staffer_index.html')
+
+@app.route('/staffer_logout')
+def logout():
+    logout_staffer()
+    flash('You were logged out.', 'success')
+    return redirect(url_for('staffer_login'))
 
 @app.route('/staffers/<staff_id>')
 def show_staffer(staff_id):
@@ -119,14 +127,17 @@ def client_login():
     username = request.form['username']
     client_phone_num = request.form['client_phone_num']
 
-    client_login_pn = crud.get_client_phone_num(client_phone_num)
+    client = crud.get_client_phone_num(client_phone_num)
     
-    if client_login_pn == None:
+    if client == None:
         flash('Wrong password!')
         return redirect('/client_login')
     else:
         flash(f'You are logged in as {username}.')
-    return redirect(url_for('client_view', client_login_pn=client_login_pn))
+        session['clientEmail'] = client.email
+        session['client'] = client.client_id
+        session['client'] = client.client_phone_num
+    return redirect(url_for('client_view', client=client))
         #NEED TO ADD A QUEREY PAGE FOR PARTY 
 
 @app.route('/client_login')
@@ -134,6 +145,12 @@ def clients_login():
     """Create a client login."""
 
     return render_template('client_login_index.html')
+
+@app.route('/client_logout')
+def clients_logout():
+    logout_client()
+    flash('You were logged out.', 'success')
+    return redirect(url_for('clients_login'))
 
 @app.route('/clients')
 def all_clients():
@@ -155,23 +172,26 @@ def show_client(client_id):
 def client_view():
     """Display clients event"""
 
-    #client_id = 65 #'8088081122'
-
-    #clientevents = crud.get_event_by_id(8)
-    #partypackage = crud.get_partypackages()
-
-    partyInfo = crud.get_client_events('8088081122') #'client_phone_num')
-
-
+    partyInfo = crud.get_client_events(session['client_login_pn'])
 
     return render_template('client_events.html', partyInfo=partyInfo)
 
 
-# @app.route('/clientthank')
-# def clientthank():
-#     """clientthank"""
+@app.route('/clientthank')
+def clientthank():
+    """clientthank"""
+    # msg = Message("Thank you for your reservation! Your Event Confirmation# is ME07(eventconf#)")
+    
+    message = send_sms.text_client.messages.create(
+        to="+15103773852", 
+        from_="+18082078922",
+        body="Hello from Python Server!")
 
-#     return render_template('client_thank.html')
+    print('\n************message.sid******************')
+    print(message.sid)
+    print('\n************message.sid******************')
+
+    return render_template('client_thank.html')
 
 """Events Routes"""
 
@@ -179,7 +199,7 @@ def client_view():
 def create_event_get():
     party_packages_list = crud.get_partypackages()
     #clientid = crud.get_client_id(session['clientEmail'])
-    #session['client'] = client_id
+    
     #session['clientName'] = new_client.name
     
     return render_template('event_create.html', party_packages_list=party_packages_list)
@@ -196,24 +216,26 @@ def create_event():
     purchase_id = crud.get_partypackage(partypackage)
     date_of_event = request.form['date_of_event']
     added_details = request.form['added_details']
+    qtyguest = request.form['qtyguest']
     event_location = request.form['event_location']
 
-    event = crud.add_event(goh_name, purchase_id, date_of_event, event_location, client_id, added_details)
+    event = crud.add_event(goh_name, purchase_id, date_of_event, qtyguest, event_location, client_id, added_details)
 
-    return render_template('client_thank.html', event=event)
+    return redirect('/clientthank')
 
 @app.route('/events/<event_id>')
 def show_event(event_id):
     """Show details on a particular event."""
 
     event = crud.get_event_by_id(event_id)
+    #conf_number = session['confirmation_number'] = event
 
     return render_template('client_thank.html', event=event)
 
 @app.route('/scheduled_events')
 def show_staffers_events():
 
-    events = crud.get_events_by_location('Joe')  #session['staffer'])
+    events = crud.get_events_by_location(session['staffer'])
     
     return render_template('scheduled_events.html', events=events)
 
