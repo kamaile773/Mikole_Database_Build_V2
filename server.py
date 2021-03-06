@@ -185,11 +185,10 @@ def clientthank():
     message = send_sms.text_client.messages.create(
         to="+15103773852", 
         from_="+18082078922",
-        body="Hello from Python Server!")
+        body=f("Hello, Thank you for your reservation! Your Event Confiramtion # is ME")
 
     print('\n************message.sid******************')
     print(message.sid)
-    print('\n************message.sid******************')
 
     return render_template('client_thank.html')
 
@@ -228,7 +227,6 @@ def show_event(event_id):
     """Show details on a particular event."""
 
     event = crud.get_event_by_id(event_id)
-    #conf_number = session['confirmation_number'] = event
 
     return render_template('client_thank.html', event=event)
 
