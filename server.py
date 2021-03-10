@@ -2,16 +2,29 @@
 
 from flask import Flask, render_template, redirect, flash, session, request, url_for
 from flask_session import Session
+from flask_nav import Nav
+from flask_nav.elements import Navbar, View
 import jinja2
 import send_sms
-# from flaskext.mail import Message
 from model import connect_to_db
 import crud
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='images')
 app.secret_key = 'nihq8ruwetu&(*^iaifj'
 
 
+nav = Nav()
+@app.route("/topbar")
+def topbar():
+    
+    topbar = Navbar('', (View('Home', 'homepage'), 
+        View('Event Packages', 'partypackages'), 
+        View('Event Registration', 'client_registration'),
+        View('Login', 'client_login'),
+        View('Login', 'staffer_login')))
+    #home_view, """eventpkg_view""", """eventreg_view""", """clientlogin_view""", """stafferlogin_view"""
+    #return Navbar('MikoleSite', home_view, eventpkg_view, eventreg_view, clientlogin_view, stafferlogin_view)
+    nav.register_element('top', topbar)
 
 @app.route("/")
 def homepage():
@@ -78,8 +91,9 @@ def staffers_login():
 
 @app.route('/staffer_logout')
 def logout():
-    logout_staffer()
+
     flash('You were logged out.', 'success')
+    
     return redirect(url_for('staffer_login'))
 
 @app.route('/staffers/<staff_id>')
@@ -106,6 +120,11 @@ def register_client():
     client_phone_num = request.form.get('client_phone_num')
     email = request.form.get('email')
     print(name, client_phone_num, email)
+
+    vaild_email = crud.get_client_id(email)
+    
+    if vaild_email:
+        return '<h1> Account Already Exist </h1>'
 
     new_client = crud.add_client(name, client_phone_num, email)
 
@@ -135,8 +154,8 @@ def client_login():
     else:
         flash(f'You are logged in as {username}.')
         session['clientEmail'] = client.email
-        session['client'] = client.client_id
-        session['client'] = client.client_phone_num
+        #session['client_login_pn'] = client.client_login_pn #TODO clean-up
+        session['client_phone_num'] = client.client_phone_num
     return redirect(url_for('client_view', client=client))
         #NEED TO ADD A QUEREY PAGE FOR PARTY 
 
@@ -147,10 +166,11 @@ def clients_login():
     return render_template('client_login_index.html')
 
 @app.route('/client_logout')
-def clients_logout():
-    logout_client()
+def client_logout():
+
     flash('You were logged out.', 'success')
-    return redirect(url_for('clients_login'))
+
+    return redirect(url_for('client_login'))
 
 @app.route('/clients')
 def all_clients():
@@ -172,7 +192,8 @@ def show_client(client_id):
 def client_view():
     """Display clients event"""
 
-    partyInfo = crud.get_client_events(session['client_login_pn'])
+    partyInfo = crud.get_client_events(session['client_phone_num'])
+    print(partyInfo)
 
     return render_template('client_events.html', partyInfo=partyInfo)
 
@@ -191,6 +212,7 @@ def clientthank():
     # print(message.sid)
     return render_template('client_thank.html')
 
+
 """Events Routes"""
 
 @app.route('/create_event')
@@ -201,8 +223,6 @@ def create_event_get():
     #session['clientName'] = new_client.name
     
     return render_template('event_create.html', party_packages_list=party_packages_list)
-
-
 
 @app.route('/create_event', methods=['POST'])
 def create_event():
@@ -215,11 +235,12 @@ def create_event():
     date_of_event = request.form['date_of_event']
     added_details = request.form['added_details']
     qtyguest = request.form['qtyguest']
-    event_location = request.form['event_location']
+    event_location = request.form.get('event_location')
 
     event = crud.add_event(goh_name, purchase_id, date_of_event, qtyguest, event_location, client_id, added_details)
-
-
+    print("*****************************\n")
+    print(f"event_location={event_location}")
+    
     return redirect('/clientthank')
 
 
@@ -238,6 +259,14 @@ def show_staffers_events():
     
     return render_template('scheduled_events.html', events=events)
 
+@app.route('/eventcheckin')
+def eventcheckin():
+    """Client Checkin for Event
+    Client submits button Time stamp to let staff know client is here
+    Store Date Time Stamp in Client Table
+    Update Staff to let them know Client Arrived"""
+
+nav.init_app(app)
 
 if __name__ == '__main__':
     connect_to_db(app)

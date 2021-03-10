@@ -72,27 +72,23 @@ def get_client_phone_num(client_phone_num):
 def get_client_id(email):
 
     client = Client.query.filter_by(email=email).first()
+    if client == None:
+        return False
     
     return client.client_id
 
 def get_client_events(client_phone_num):
 
-    sql = """SELECT partypackages.title, partypackages.overview,
-                events.date_of_event, events.goh_name, events.added_details, events.event_location,
-                clients.name 
-                FROM partypackages , events, clients
-                WHERE partypackages.purchase_id= events.purchase_id 
-                AND clients.client_id = events.client_id 
-                AND clients.client_phone_num = :phone
-    """
-    cursor = db.session.execute(sql, {'phone': client_phone_num})
+    client = Client.query.filter_by(client_phone_num=client_phone_num).first()
 
-    return cursor.fetchall()
+    return client.events
 
 def get_event_by_id(event_id):
     """Get Event By Id"""
 
-    return Event.query.get(event_id)
+    eventid = Event.query.filter_by(event_id=event_id).first()
+
+    return eventid.event_id
 
 def add_event(goh_name, purchase_id, date_of_event, qtyguest, event_location, client_id, added_details):
     """Add Event"""
@@ -111,7 +107,7 @@ def get_events():
 
 def get_events_by_location(staffer):
 
-    staffRecord = Staffer.query.filter_by(lname=staffer).first()
+    staffRecord = Staffer.query.filter_by(fname=staffer).first()
 
     return Event.query.filter_by(event_location=staffRecord.location)
 

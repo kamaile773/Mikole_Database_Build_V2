@@ -5,15 +5,19 @@
     <title> Create Event </title>
 </head>
 <body>
+    <center>
     <h1> Hello {{session['clientName']}}, <br>
-     Mikole is honored to host your next event,<br>
-     Lets enter Event Details here: </h1><br>
+        Mikole is honored to host your next event,<br>
+        Lets enter Event Details here: </h1><br>
+    </center>
+    <img src="/images/Blank.jpg" style="width:100%">
+
 
         <form  method="post" action="/create_event">
 
             <div>
             <label class="label-input" for="goh_name">Tell us who the event is for *</label>
-                <input id="goh_name" type="text" name="goh_name" placeholder="First name">
+                <input id="goh_name" type="text" name="goh_name" placeholder="First name" required>
             </div><br>
 
             <div class="dropdown"><label>Please confirm the Event of your choice: *</label>
@@ -29,12 +33,12 @@
             <label class="label-input" for="date_of_event">Enter Date that you would like to reserve*</label>
             <div>
                 <input id="date_of_event" type="datetime" name="date_of_event" placeholder="MM/DD/YYYY"
-                onfocus="(this.type='date')">
+                onfocus="(this.type='date')" required>
             </div><br>
 
             <label class="label-input" for="qtyguest">Enter how many guest do you plan to have *</label>
             <div> 
-                <input id="qtyguest" name="qtyguest" type="number" />
+                <input id="qtyguest" name="qtyguest" type="number" required />
             </div><br>
             
             <label class="label-input" for="added_details">Enter any additional information *</label>
@@ -45,10 +49,10 @@
             </div><br>
 
             <div>
-            <label class="label-input" for="event_location">Desired Location *</label>
+            <label class="label-input" for="event_location" >Desired Location *</label>
 
                     <p>Please select your Location:</p>
-                    <input type="radio" id="CA" name="event_location" value="Oakland">
+                    <input type="radio" id="CA" name="event_location" value="Oakland" checked>
                     <label for="Oakland">Oakland, CA</label><br>
                     <input type="radio" id="CA" name="event_location" value="Los Angeles">
                     <label for="Los Angeles">Los Angeles, CA</label><br>               

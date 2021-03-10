@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Welcome to {{session['clientName']}}'s' : Mikole Event Central{% endblock %}
+
+{% block body %}
+
+<video width="100%" autoplay muted>
+  <source src="/images/client_events.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video><br>
+
+  <h1>Here are the events that you are scheduled:</h1>
+  
+  <body>
+    <ul id="Your Reserved Party Package">
+      <li>
+       <ul id="Navigation">
+        {% for party in partyInfo %}
+          <p>{{ party }}</p>
+        {% endfor %}
+      </ul>
+
+      </li>
+    </ul>
+    <title>Let Us Know You Are Here:</title>
+    <button style="margin:10px" type="button" onclick="location.href='/clientcheckin';"class="btn btn-warning">Check In</button>
+    <button style="margin:10px" type="button" onclick="location.href='/client_logout';"class="btn btn-warning">Log Out</button>
+{% endblock %}

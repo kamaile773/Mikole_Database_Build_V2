@@ -2,7 +2,17 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <!-- jQuery script tag from code.jquery.com -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    
+    <!-- Add CSS style sheet-->
+    <!-- <link herf="/css/styles.css" rel="stylesheet"> -->
+
     <title>
       {% block title %}{% endblock %}
     </title>
@@ -10,6 +20,35 @@
     {% block head %}{% endblock %}
   </head>
   <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="images/MikoleLogo.jpg"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/partypackages">Event Packages</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/client_registration">Reservations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/client_login">Client Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/staffer_login">Staff</a>
+          </li>
+                <!-- <a class="dropdown-item" href="#">Guest Login</a>Future Devop Feature -->
+            </div>
+        </ul>
+      </div>
+    </nav>
+
     {% for msg in get_flashed_messages() %}
       <p class="flash-msg">
         {{ msg }}
@@ -19,5 +58,8 @@
     {% block body %}{% endblock %}
 
     {% block after_body %}{% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
   </body>
 </html>

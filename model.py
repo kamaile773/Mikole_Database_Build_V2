@@ -1,7 +1,9 @@
 """Models for Mikole app."""
 from flask_sqlalchemy import SQLAlchemy
 
+
 db = SQLAlchemy()
+
 
 class Party_Package(db.Model):
     """Party packages."""
