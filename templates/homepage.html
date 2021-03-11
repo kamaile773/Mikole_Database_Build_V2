@@ -3,15 +3,19 @@
 
 {% block body %}
   <center>
+  <div style="font-family: 'Martel Sans', serif; font-size: 98px;">
   <h1>Welcome to Mikole Event Central</h1>
   <h2 >Where we take care of all the details that go into throwing an event.</h2>
   <h3>Bit by Bit!</h3>
+  </div>
+
   <div class="wrapper">
   </div>
   </center>
   
-  <body>
-    <img src="/images/homepage.jpg" style="width:100%">
+
+    <img class="background-image" src="/static/images/homepage1.jpg" style="width:100%">
+
     <ul id="Navigation">
       <li><a href="/partypackages">Click Here to See Our Event Packages.</a></li>
       {% for party in party_packages_list %}

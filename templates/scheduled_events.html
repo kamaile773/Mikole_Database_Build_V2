@@ -2,10 +2,19 @@
 {% block title %}Welcome to Mikole Event Central{% endblock %}
 
 {% block body %}
-<img src="/images/StaffPage.jpg" style="width:100%">
+<img class="background-image" src="/static/images/StaffPage.jpg" style="width:100%">
   <h1>Here are the event scheduled</h1>
   
   <body>
+    <table>
+      <tr>
+        <th></th>
+        </th>
+
+
+
+      </tr>
+    </table>
     <ul id="Navigation">
       {% for party in events %}
         <p>{{ party }}</p>

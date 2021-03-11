@@ -9,7 +9,7 @@ import send_sms
 from model import connect_to_db
 import crud
 
-app = Flask(__name__, static_folder='images')
+app = Flask(__name__,)
 app.secret_key = 'nihq8ruwetu&(*^iaifj'
 
 
@@ -93,7 +93,7 @@ def staffers_login():
 def logout():
 
     flash('You were logged out.', 'success')
-    
+
     return redirect(url_for('staffer_login'))
 
 @app.route('/staffers/<staff_id>')
@@ -198,19 +198,21 @@ def client_view():
     return render_template('client_events.html', partyInfo=partyInfo)
 
 
-@app.route('/clientthank')
-def clientthank():
+@app.route('/clientthank/<event_id>')
+def clientthank(event_id):
     """clientthank"""
+
+    Conf_num =crud.get_event_by_id(event_id)
 
     message = send_sms.text_client.messages.create(
         to="+15103773852", 
         from_="+18082078922",
-        body="Hello, Thank you for your reservation! Your Event Confirmation # is ME"
+        body=f"Hello, Thank you for your reservation! Your Event Confirmation # is {event_id}"
         )
 
     # print('\n************message.sid******************')
     # print(message.sid)
-    return render_template('client_thank.html')
+    return render_template('client_thank.html', Conf_num=Conf_num)
 
 
 """Events Routes"""
@@ -238,10 +240,11 @@ def create_event():
     event_location = request.form.get('event_location')
 
     event = crud.add_event(goh_name, purchase_id, date_of_event, qtyguest, event_location, client_id, added_details)
+    
     print("*****************************\n")
     print(f"event_location={event_location}")
     
-    return redirect('/clientthank')
+    return redirect('/clientthank/') #+ str(event.event_id))
 
 
 @app.route('/events/<event_id>')
@@ -258,6 +261,12 @@ def show_staffers_events():
     events = crud.get_events_by_location(session['staffer'])
     
     return render_template('scheduled_events.html', events=events)
+
+@app.route('/table')
+def sample_table():
+    """show table"""
+
+    return render_template('table.html')
 
 @app.route('/eventcheckin')
 def eventcheckin():

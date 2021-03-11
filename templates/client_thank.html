@@ -2,16 +2,19 @@
 {% block title %}Welcome to Mikole Event Central{% endblock %}
 
 {% block body %}
+<video width="100%" autoplay muted>
+  <source class="background-image" src="/static/images/Mikole.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video><br>
 
     <h1>Thank You</h1>
-    <h2>Here is your Confirmation Number </h2><br>
-    <h3>We have sent a copy of your reservations via text to your phone number provided.</h3><br>
+    <h2>Here is your Confirmation Number {{ Conf_num }} </h2><br>
+    <h3>We have sent a copy of your Confirmation Number via text to the phone number provided.
+      If you loose the text message Log-In to your account to check your reservation details.
+    </h3><br>
+
     <h4>Our Staff will contact you to go over your Event with in 48 hours!</h4><br>
     <h5>We Look forward to Hosting your Event!</h5><br>
-    <video width="100%" autoplay muted>
-      <source src="/images/Mikole.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video><br>
-{% endblock %}
 
-<!--{{ events.events_id }}-->
+
+{% endblock %}
