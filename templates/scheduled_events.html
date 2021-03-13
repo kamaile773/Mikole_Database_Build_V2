@@ -6,15 +6,52 @@
   <h1>Here are the event scheduled</h1>
   
   <body>
-    <table>
-      <tr>
-        <th></th>
-        </th>
-
-
-
-      </tr>
-    </table>
+    <div class="page-content page-container" id="page-content">
+      <div class="padding">
+          <div class="row container d-flex justify-content-center">
+              <div class="col-lg-20 grid-margin stretch-card">
+                  <div class="card">
+                      <div class="card-body">
+                          <h4 class="card-title"> Upcoming Scheduled Parties </h4>
+                          <div class="table-responsive">
+                              <table class="table">
+                                  <thead>
+                                      <tr>
+                                          <th>Date of Event</th>
+                                          <th>Event Confirmation</th>
+                                          <th>Client Name</th>
+                                          <th>Email</th>
+                                          <th>Guest of Honors Name</th>
+                                          <th>Qty of Guest Expected</th>
+                                          <th>Party Package Name</th>
+                                          <th>Location</th>
+                                          <th>Added Details</th>
+                                          <th>Status</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for party in events %}
+                                      <tr>
+                                          <td> {{ events.date_of_event }} </td>
+                                          <td> {{ events.purchase_id }} </td>
+                                          <td> {{session['clientName']}} </td>
+                                          <td> {{ events.email }} </td>
+                                          <td> {{ events.qtyguest }} </td>
+                                          <td> {{ events.title }}</td>
+                                          <td> {{ events.event_location }} </td>
+                                          <td> {{ events.added_details }} </td>
+                                          <td><label class="badge badge-warning">In progress</label></td>
+                                      </tr>
+                                      {% endfor %}
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
     <ul id="Navigation">
       {% for party in events %}
         <p>{{ party }}</p>

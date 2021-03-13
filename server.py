@@ -244,7 +244,7 @@ def create_event():
     print("*****************************\n")
     print(f"event_location={event_location}")
     
-    return redirect('/clientthank/') #+ str(event.event_id))
+    return redirect('/clientthank/' + str(event.event_id))
 
 
 @app.route('/events/<event_id>')

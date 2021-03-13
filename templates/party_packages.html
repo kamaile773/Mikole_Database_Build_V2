@@ -2,24 +2,29 @@
 {% block title %}All Party Packages{% endblock %}
 
 {% block body %}
-<img class="background-image" src="/static/images/event_pkg.jpg" style="width:100%">
-  <h1>Here are all of Our Party Packages</h1>
-  <h2></h2>
 
+<h1 style="font-family:'Martel Sans'; color:black;">Here are all of Our Party Packages</h1>
   <body>
 
-    <ul id="Party Package Details">
-      {% for package in party_packages_list %}
-        <li>
-          <a href="/partypackages/{{ package.purchase_id }}">
-            {{ package.title }}
-          </a>
-          :{{ package.overview }}
-          {{ package.party_includes }}
-          {{ package.qty_of_guest }}
-          {{ package.cost }}
-        </li>
-      {% endfor %}
+      <!--Package Section-->
+<div class="card-group">
+  {% for package in party_packages_list %}
+  <div class="card text-center" style="max-width: 15;">
+    <img class="card-img-top" src="/static/images/card{{ package.purchase_id }}.jpeg" alt="Card image cap">
+    <div class="card-title">{{ package.title }}</div>
+    <div class="card-body">
+      <p class="card-text">          
+        Overview: {{ package.overview }} <br><br>
+        Include(s): {{ package.party_includes }} <br><br>
+
+        Price: {{ package.cost }}</p>
+      <a href="/partypackages/{{ package.purchase_id }}" class="btn btn-primary">Details</a>
+    </div>
+  </div>
+  {% endfor %}
+  </div>
+  <center>
+      <img class="background-image" src="/static/images/event_pkg2.jpg" style="width:100% height:20%">
     </ul>
 {% endblock %}
 

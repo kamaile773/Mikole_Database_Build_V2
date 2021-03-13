@@ -8,17 +8,62 @@
   Your browser does not support the video tag.
 </video><br>
 
-  <h1>Here are the events that you are scheduled:</h1>
   
   <body>
+    <h1>Here are the events that you are scheduled:</h1>
     <ul id="Your Reserved Party Package">
-      <li>
        <ul id="Navigation">
         {% for party in partyInfo %}
-          <p>{{ party }}</p>
         {% endfor %}
+        <div class="page-content page-container" id="page-content">
+          <div class="padding">
+              <div class="row container d-flex justify-content-center">
+                  <div class="col-lg-20 grid-margin stretch-card">
+                      <div class="card">
+                          <div class="card-body">
+                              <h4 class="card-title"> Scheduled Parties </h4>
+                              <div class="table-responsive">
+                                  <table class="table">
+                                      <thead>
+                                          <tr>
+                                              <th>Event Date</th>
+                                              <th>Event Confirmation#</th>
+                                              <th>Client Name</th>
+                                              <th>Guest of Honors Name</th>
+                                              <th>Event Name</th>
+                                              <th>Added Details</th>
+                                              <th>Location</th>
+                                              <th>Status</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                        {% for party in partyInfo %}
+                                        {{ party }}
+                                          <tr>
+                                              <td> {{ party.date_of_event }} </td>
+                                              <td> {{ party.purchase_id }} </td>
+                                              <td> {{session['clientName']}} </td>
+                                              <td> {{ party.goh_name }} </td>
+                                              <td> {{ party.partypackage.title }} </td>
+                                              <td> {{ party.added_details }}</td>
+                                              <td> {{ party.event_location }} </td>
+                                              <td><label class="badge badge-warning">In progress</label></td>
+                                          </tr>
+                                          {% endfor %}
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+    </ul>
       </ul>
 
+    </div>
       </li>
     </ul>
     <title>Let Us Know You Are Here:</title>

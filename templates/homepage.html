@@ -3,6 +3,7 @@
 
 {% block body %}
   <center>
+  <br>
   <div style="font-family: 'Martel Sans', serif; font-size: 98px;">
   <h1>Welcome to Mikole Event Central</h1>
   <h2 >Where we take care of all the details that go into throwing an event.</h2>
@@ -12,20 +13,140 @@
   <div class="wrapper">
   </div>
   </center>
-  
+
+<!-- Page content -->
+<div class="w3-content" style="max-width:2000px;margin-top:46px">
 
     <img class="background-image" src="/static/images/homepage1.jpg" style="width:100%">
+<!-- Automatic Slideshow Images -->
+<center>
+      <div class="mySlides w3-display-container w3-center">
+        <img src="/static/images/Bronze.jfif" style="width:50%">
+        <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+          <br>
+          <h3>Los Angeles</h3>
+          <p><b>We had the best time playing at Venice Beach!</b></p>   
+        </div>
+      </div>
+      <div class="mySlides w3-display-container w3-center">
+        <img src="/static/images/Gold.jfif" style="width:50%">
+        <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+          <br>
+          <h3>Las Vegas</h3>
+          <p><b>The atmosphere in New York is lorem ipsum.</b></p>    
+        </div>
+      </div>
+      <div class="mySlides w3-display-container w3-center">
+        <img src="/static/images/Silver.jfif" style="width:50%">
+        <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+          <br>
+          <h3>Chicago</h3>
+          <p><b>Thank you, Chicago - A night we won't forget.</b></p>    
+        </div>
+      </div>
+        <div class="mySlides w3-display-container w3-center">
+          <img src="/static/images/P1.jfif" style="width:50%">
+          <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+            <br>
+            <h3>Oakland</h3>
+            <p><b>Creating memories</b></p>    
+          </div>
+      </div>
+    </center>
 
-    <ul id="Navigation">
-      <li><a href="/partypackages">Click Here to See Our Event Packages.</a></li>
-      {% for party in party_packages_list %}
-        <p>{{party.title}}</p>
-      {% endfor %}
-    </ul>
 
-  <button style="margin:10px" type="button" onclick="location.href='/staffer_login';"class="btn btn-warning">Staff Login</button>
-  <button style="margin:10px" type="button" onclick="location.href='/client_login';"class="btn btn-warning">Client Login</button>
+<center>
+<!--Package Section-->
+<div class="card-group">
+{% for party in party_packages_list %}
+<div class="card text-center" style="max-width: 15rem;">
+  <img class="card-img-top" src="/static/images/card{{ party.purchase_id }}.jpeg" alt="Card image cap">
+  <div class="card-title">{{ party.title }}</div>
+  <div class="card-body">
+    <a href="/partypackages/{{ party.purchase_id }}" class="btn btn-primary">Details</a>
+  </div>
 </div>
+{% endfor %}
+</div>
+<center>
+
+
   
+<!-- The Contact Section -->
+  <center>
+    <br>
+    <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="contact">
+      <h2 class="w3-wide w3-center">CONTACT</h2>
+      <div class="w3-row w3-padding-32">
+        <div class="w3-col m6 w3-large w3-margin-bottom">
+          <i class="fa fa-map-marker" style="width:30px"></i> San Francisco, CA<br>
+          <i class="fa fa-phone" style="width:30px"></i> Phone:  1-800-Mikole1<br>
+          <i class="fa fa-envelope" style="width:30px"> </i> Email: customer@mikole.com<br>
+        </div>
+        <div class="w3-col m6">
+          <form action="/action_page.php" target="_blank">
+            <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
+              <div class="w3-half">
+                <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
+              </div>
+              <div class="w3-half">
+                <input class="w3-input w3-border" type="text" placeholder="Email" required name="Email">
+              </div>
+            </div>
+            <input class="w3-input w3-border" type="text" placeholder="Message" required name="Message">
+            <button class="w3-button w3-black w3-section w3-right" type="submit">SEND</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </center>
+
+<!-- End Page Content -->
+</div>
+
+<!-- Image of location/map -->
+<img src="/w3images/map.jpg" class="w3-image w3-greyscale-min" style="width:100%">
+
+<!-- Footer -->
+
+
+    <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+    </footer>
+
+<script>
+  // Automatic Slideshow - change image every 4 seconds
+  var myIndex = 0;
+  carousel();
   
+  function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";  
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}    
+    x[myIndex-1].style.display = "block";  
+    setTimeout(carousel, 4000);    
+  }
+  
+  // Used to toggle the menu on small screens when clicking on the menu button
+  function myFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+      x.className += " w3-show";
+    } else { 
+      x.className = x.className.replace(" w3-show", "");
+    }
+  }
+  
+  // When the user clicks anywhere outside of the modal, close it
+  var modal = document.getElementById('ticketModal');
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+  </script>
 {% endblock %}
